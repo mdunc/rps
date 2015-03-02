@@ -16,7 +16,14 @@ get '/computer_choice' do
 end
 
 get '/check/:user_choice/:computer_choice' do
+  if not VALID_CHOICES.include? params[:user_choice]
+    return "Invalid user choice"
+  end
+  if not VALID_CHOICES.include? params[:computer_choice]
+    return "Invalid computer choice"
+  end
 
+  winner = ""
 
   case params[:user_choice]
   when "rock"
