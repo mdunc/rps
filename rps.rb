@@ -1,7 +1,7 @@
 require 'sinatra'
 
 get '/hi' do
-  "Hello!"
+  "Hello I'm Chiaki!"
 end
 
 get '/bye' do
