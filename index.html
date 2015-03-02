@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title> - jsFiddle demo</title>
 
-  <script type='text/javascript' src='//code.jquery.com/jquery-2.1.0.js'></script>
+  <script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.js'></script>
 
 
 
@@ -96,10 +96,13 @@
 
     computerChoice = computerChoice();
 
-    $("#results").html(compare(userChoice,computerChoice));
-    if (compare(userChoice,computerChoice) === "computer wins") {
-      $("#results").css("background-color", "blue");
-    }
+    $.getJSON("http://localhost:4567/check/" + userChoice + "/" + computerChoice, function(data) {
+      console.log(data);
+      $("#results").html("Winner: " + data);
+      if (data === "computer") {
+        $("#results").css("background-color", "blue");
+      }
+    });
 
   }
 
@@ -119,25 +122,6 @@
   }
 
 
-  function compare(choice1, choice2) {
-    if (choice1 === choice2) {
-      return "The result is a tie!";
-    } else if (choice1 === "rock") {
-      if (choice2 === "scissors") {
-        return "your wins";
-      } else {
-        return "computer wins";
-      }
-    } else if(choice1 === "paper"){
-      if(choice2 === "rock"){
-        return "your wins";
-      } else {
-        return "computer wins";
-      }
-    } else {
-      return choice2 === "paper" ? "your wins" : "computer wins";
-    }
-  }
   //]]>
 
 </script>

@@ -3,6 +3,10 @@ require 'json'
 
 VALID_CHOICES = ['rock', 'paper', 'scissors']
 
+get '/' do
+  File.read('index.html')
+end
+
 get '/hi' do
   "Hello I'm Chiaki!"
 end
