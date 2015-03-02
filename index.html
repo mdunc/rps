@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> - jsFiddle demo</title>
+
+  <script type='text/javascript' src='/js/lib/dummy.js'></script>
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+
+  <style type='text/css'>
+  #content {
+    /*width: 800px;*/
+    height: 400px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    position: relative;
+    display: none;
+  }
+  #user, #computer {
+    width: 380px;
+    height: 380px;
+    padding: 10px;
+    margin: 9px;
+    border-radius: 15px;
+  }
+  #user {
+    background-color: pink;
+    float: left;
+  }
+  #computer {
+    color: #fff;
+    background-color: green;
+    float: right;
+  }
+  img {
+    width: 350px;
+    height: 320px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  #results {
+    position: absolute;
+    top:180px;
+    left:225px;
+    width: 350px;
+    font-size: 30px;
+    text-align: center;
+    background-color: red;
+  }
+  #tryAgainRow {
+    display: none;
+  }
+}
+</style>
+
+
+
+<script type='text/javascript'>//<![CDATA[
+
+  var userChoice;
+
+  function doUserChoice(userChoice) {
+    document.getElementById("content").style.display = "block";
+    document.getElementById("userChoice").style.display = "none";
+    document.getElementById("tryAgainRow").style.display = "block";
+    if(userChoice === "rock"){
+      document.getElementById("user_rock").style.display = "block";
+    }else if(userChoice === "paper"){
+      document.getElementById("user_paper").style.display = "block";
+    }else if(userChoice === "scissors"){
+      document.getElementById("user_scissors").style.display = "block";
+    }
+
+    var computerChoice = Math.random();
+    if (computerChoice < 0.34) {
+      computerChoice = "rock";
+      document.getElementById("rock").style.display = "block";
+    } else if(computerChoice <= 0.67) {
+      computerChoice = "paper";
+      document.getElementById("paper").style.display = "block";
+    } else {
+      computerChoice = "scissors";
+      document.getElementById("scissors").style.display = "block";
+    } console.log("Computer: " + computerChoice);
+
+    var item = document.createElement("div");
+    item.id = "item_space";
+    document.getElementById("user").appendChild(item);
+
+    document.getElementById("results").innerHTML = compare(userChoice,computerChoice);
+
+    if (compare(userChoice,computerChoice) === "computer wins") {
+      document.getElementById("results").style.backgroundColor = "blue";
+    }
+  }
+
+
+  function compare(choice1, choice2) {
+    if (choice1 === choice2) {
+      return "The result is a tie!";
+    } else if (choice1 === "rock") {
+      if (choice2 === "scissors") {
+        return "your wins";
+      } else {
+        return "computer wins";
+      }
+    } else if(choice1 === "paper"){
+      if(choice2 === "rock"){
+        return "your wins";
+      } else {
+        return "computer wins";
+      }
+    } else {
+      return choice2 === "paper" ? "your wins" : "computer wins";
+    }
+  }
+  //]]>
+
+</script>
+
+
+</head>
+<body>
+
+  <div class="container-fluid">
+    <div id="userChoice" class="row" style="text-align: center">
+      <h3>Your choice:</h3>
+      <button onClick="doUserChoice('rock');" class="btn btn-primary">Rock</button>
+      <button onClick="doUserChoice('paper');"class="btn btn-primary">Paper</button>
+      <button onClick="doUserChoice('scissors');"class="btn btn-primary">Scissors</button>
+    </div>
+    <div id ="content" class="row">
+      <div id="user" class="col-md-6">
+        <span>USER CHOICE</span>
+        <img id="user_rock" src="http://newsdesk.si.edu/sites/default/files/imagecache/snapshot_image/PlymouthRockPiece.jpg" style="display: none;"/>
+        <img id="user_paper" src="http://leadingedgephysio.com/wp/wp-content/uploads/2010/02/smooth-paper.jpg" style="display: none;"/>
+        <img id="user_scissors" src="http://supasaveshop.com.au/images/Iceman%20apprentice.jpg" style="display: none;"/>
+      </div>
+      <div id="computer" class="col-md-6">
+        <span>COMPUTER CHOICE</span>
+        <img id="rock" src="http://newsdesk.si.edu/sites/default/files/imagecache/snapshot_image/PlymouthRockPiece.jpg" style="display: none;"/>
+        <img id="paper" src="http://leadingedgephysio.com/wp/wp-content/uploads/2010/02/smooth-paper.jpg" style="display: none;"/>
+        <img id="scissors" src="http://supasaveshop.com.au/images/Iceman%20apprentice.jpg" style="display: none;"/>
+      </div>
+      <div id="results"></div>
+
+
+    </div>
+    <div class="row" style="text-align: center;" id="tryAgainRow">
+      <button onClick="location.reload()" type="button" class="btn btn-default">Try Again</button>
+    </div>
+
+  </div>
+
+</body>
+
+
+</html>
