@@ -12,6 +12,7 @@ get '/bye' do
 end
 
 get '/computer_choice' do
+  content_type :json
   ["rock", "paper", "scissors"].sample.to_json
 end
 
@@ -22,6 +23,8 @@ get '/check/:user_choice/:computer_choice' do
   if not VALID_CHOICES.include? params[:computer_choice]
     return "Invalid computer choice"
   end
+
+  content_type :json
 
   winner = ""
 
