@@ -17,51 +17,51 @@
 
 
   <style type='text/css'>
-  #content {
-    /*width: 800px;*/
-    height: 400px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    position: relative;
-    display: none;
+    #content {
+      /*width: 800px;*/
+      height: 400px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;
+      position: relative;
+      display: none;
+    }
+    #user, #computer {
+      width: 380px;
+      height: 380px;
+      padding: 10px;
+      margin: 9px;
+      border-radius: 15px;
+    }
+    #user {
+      background-color: pink;
+      float: left;
+    }
+    #computer {
+      color: #fff;
+      background-color: green;
+      float: right;
+    }
+    img {
+      width: 350px;
+      height: 320px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    #results {
+      position: absolute;
+      top:180px;
+      left:225px;
+      width: 350px;
+      font-size: 30px;
+      text-align: center;
+      background-color: red;
+    }
+    #tryAgainRow {
+      display: none;
+    }
   }
-  #user, #computer {
-    width: 380px;
-    height: 380px;
-    padding: 10px;
-    margin: 9px;
-    border-radius: 15px;
-  }
-  #user {
-    background-color: pink;
-    float: left;
-  }
-  #computer {
-    color: #fff;
-    background-color: green;
-    float: right;
-  }
-  img {
-    width: 350px;
-    height: 320px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  #results {
-    position: absolute;
-    top:180px;
-    left:225px;
-    width: 350px;
-    font-size: 30px;
-    text-align: center;
-    background-color: red;
-  }
-  #tryAgainRow {
-    display: none;
-  }
-}
 </style>
 
 
@@ -94,8 +94,8 @@
     }
     $("#user").append($('<div/>').attr("id","item_space"));
 
-    computerChoice = computerChoice();
 
+    //ajax
     $.getJSON("http://localhost:4567/check/" + userChoice + "/" + computerChoice, function(data) {
       console.log(data);
       $("#results").html("Winner: " + data);
@@ -103,23 +103,18 @@
         $("#results").css("background-color", "blue");
       }
     });
-
   }
 
-  function computerChoice(){
-    var computerChoice = Math.random();
-    if (computerChoice < 0.34) {
-      computerChoice = "rock";
-      $("#rock").css("display","block");
-    } else if(computerChoice <= 0.67) {
-      computerChoice = "paper";
-      $("#paper").css("display","block");
-    } else {
-      computerChoice = "scissors";
-      $("#scissors").css("display","block");
-    } console.log("Computer: " + computerChoice);
-    return computerChoice;
-  }
+ $.getJSON("http://localhost:4567/computer_choice",function(computerChoice){
+        if (computerChoice == "rock") {
+          $("#rock").css("display","block");
+        } else if(computerChoice == "paper") { 
+          $("#paper").css("display","block");
+        } else {
+          $("#scissors").css("display","block");
+        } console.log("Computer: " + computerChoice);
+      });
+
 
 
   //]]>
