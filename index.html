@@ -10,7 +10,7 @@
 
 
 
-  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/result-light.css"> -->
 
 
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -95,27 +95,17 @@
     $("#user").append($('<div/>').attr("id","item_space"));
 
 
-    //ajax
-    $.getJSON("http://localhost:4567/check/" + userChoice + "/" + computerChoice, function(data) {
-      console.log(data);
-      $("#results").html("Winner: " + data);
-      if (data === "computer") {
+    $.getJSON("http://localhost:4567/computer_choice",function(computerChoice){
+      $("#" + computerChoice).show(); 
+      $.getJSON("http://localhost:4567/check/" + userChoice + "/" + computerChoice, function(data) {
+       // console.log(data);
+       $("#results").html("Winner: " + data);
+       if (data === "computer") {
         $("#results").css("background-color", "blue");
       }
     });
+    });
   }
-
- $.getJSON("http://localhost:4567/computer_choice",function(computerChoice){
-        if (computerChoice == "rock") {
-          $("#rock").css("display","block");
-        } else if(computerChoice == "paper") { 
-          $("#paper").css("display","block");
-        } else {
-          $("#scissors").css("display","block");
-        } console.log("Computer: " + computerChoice);
-      });
-
-
 
   //]]>
 
